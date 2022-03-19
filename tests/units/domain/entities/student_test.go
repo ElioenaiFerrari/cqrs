@@ -13,6 +13,7 @@ func TestStudentPrepareWhenPassValidParams(t *testing.T) {
 		Email: "elioenaiferrari@gmail.com",
 		Phone: "27999999999",
 		CPF:   "12345678901",
+		Age:   22,
 	}
 
 	if err := student.Prepare(); err != nil {
@@ -27,11 +28,29 @@ func TestStudentPrepareWhenPassInvalidRA(t *testing.T) {
 		Email: "elioeanaiferrari@gmail.com",
 		Phone: "27999999999",
 		CPF:   "12345678901",
+		Age:   22,
 	}
 
 	err := student.Prepare()
 
 	if err.Error() != "ra must be 10 digits" {
+		t.Errorf("Prepare() error = %v, wantErr %v", err, "invalid email")
+	}
+}
+
+func TestStudentPrepareWhenPassInvalidAge(t *testing.T) {
+	student := entities.Student{
+		RA:    "1234567890",
+		Name:  "Elioenai Ferrari",
+		Email: "elioeanaiferrari@gmail.com",
+		Phone: "27999999999",
+		CPF:   "12345678901",
+		Age:   17,
+	}
+
+	err := student.Prepare()
+
+	if err.Error() != "age must be at least 18 years old" {
 		t.Errorf("Prepare() error = %v, wantErr %v", err, "invalid email")
 	}
 }
@@ -43,6 +62,7 @@ func TestStudentPrepareWhenPassInvalidEmail(t *testing.T) {
 		Email: "elioeanaiferrari",
 		Phone: "27999999999",
 		CPF:   "12345678901",
+		Age:   22,
 	}
 
 	err := student.Prepare()
@@ -59,6 +79,7 @@ func TestStudentPrepareWhenPassInvalidName(t *testing.T) {
 		Email: "elioeanaiferrari@gmail.com",
 		Phone: "27999999999",
 		CPF:   "12345678901",
+		Age:   22,
 	}
 
 	err := student.Prepare()
