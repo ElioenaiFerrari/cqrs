@@ -33,19 +33,19 @@ func (s Student) validate() error {
 	}
 
 	if len(s.Phone) != 11 {
-		return errors.New("invalid phone")
+		return errors.New("phone must be 11 digits")
 	}
 
 	if len(s.CPF) != 11 {
-		return errors.New("invalid cpf")
+		return errors.New("cpf must be 11 digits")
 	}
 
 	if len(s.RA) != 10 {
-		return errors.New("invalid ra")
+		return errors.New("ra must be 10 digits")
 	}
 
 	if len(s.Name) < 3 {
-		return errors.New("invalid name")
+		return errors.New("name must be at least 3 characters")
 	}
 
 	return nil
