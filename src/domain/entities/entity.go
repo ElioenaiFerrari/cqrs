@@ -7,13 +7,13 @@ import (
 )
 
 type Entity struct {
-	ID        string    `json:"id"`
+	ID        uuid.UUID `json:"id" gorm:"type:uuid;default:uuid_generate_v4()"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func (e *Entity) Prepare() error {
-	e.ID = uuid.New().String()
+	e.ID = uuid.New()
 	e.CreatedAt = time.Now().UTC()
 	e.UpdatedAt = time.Now().UTC()
 

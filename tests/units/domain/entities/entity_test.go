@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/ElioenaiFerrari/cqrs/src/domain/entities"
+	"github.com/google/uuid"
 )
 
 func TestEntityPrepare(t *testing.T) {
@@ -14,7 +15,7 @@ func TestEntityPrepare(t *testing.T) {
 		t.Errorf("Prepare() error = %v, wantErr %v", err, nil)
 	}
 
-	if entity.ID == "" {
+	if entity.ID == uuid.Nil {
 		t.Errorf("Prepare() error = %v, wantErr %v", entity.ID, "")
 	}
 
