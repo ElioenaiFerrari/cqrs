@@ -6,8 +6,8 @@ import (
 	"github.com/ElioenaiFerrari/cqrs/src/domain/entities"
 )
 
-func TestStudentPrepareWhenPassValidParams(t *testing.T) {
-	student := entities.Student{
+func studentFixture() entities.Student {
+	return entities.Student{
 		RA:    "1234567890",
 		Name:  "Elioenai Ferrari",
 		Email: "elioenaiferrari@gmail.com",
@@ -15,6 +15,10 @@ func TestStudentPrepareWhenPassValidParams(t *testing.T) {
 		CPF:   "12345678901",
 		Age:   22,
 	}
+}
+
+func TestStudentPrepareWhenPassValidParams(t *testing.T) {
+	student := studentFixture()
 
 	if err := student.Prepare(); err != nil {
 		t.Errorf("Prepare() error = %v, wantErr %v", err, nil)
@@ -22,14 +26,8 @@ func TestStudentPrepareWhenPassValidParams(t *testing.T) {
 }
 
 func TestStudentPrepareWhenPassInvalidRA(t *testing.T) {
-	student := entities.Student{
-		RA:    "12345678",
-		Name:  "Elioenai Ferrari",
-		Email: "elioeanaiferrari@gmail.com",
-		Phone: "27999999999",
-		CPF:   "12345678901",
-		Age:   22,
-	}
+	student := studentFixture()
+	student.RA = "123456789"
 
 	err := student.Prepare()
 
@@ -39,14 +37,8 @@ func TestStudentPrepareWhenPassInvalidRA(t *testing.T) {
 }
 
 func TestStudentPrepareWhenPassInvalidAge(t *testing.T) {
-	student := entities.Student{
-		RA:    "1234567890",
-		Name:  "Elioenai Ferrari",
-		Email: "elioeanaiferrari@gmail.com",
-		Phone: "27999999999",
-		CPF:   "12345678901",
-		Age:   17,
-	}
+	student := studentFixture()
+	student.Age = -1
 
 	err := student.Prepare()
 
@@ -56,14 +48,8 @@ func TestStudentPrepareWhenPassInvalidAge(t *testing.T) {
 }
 
 func TestStudentPrepareWhenPassInvalidEmail(t *testing.T) {
-	student := entities.Student{
-		RA:    "12345678",
-		Name:  "Elioenai Ferrari",
-		Email: "elioeanaiferrari",
-		Phone: "27999999999",
-		CPF:   "12345678901",
-		Age:   22,
-	}
+	student := studentFixture()
+	student.Email = "elioeanaiferrari"
 
 	err := student.Prepare()
 
@@ -73,14 +59,8 @@ func TestStudentPrepareWhenPassInvalidEmail(t *testing.T) {
 }
 
 func TestStudentPrepareWhenPassInvalidName(t *testing.T) {
-	student := entities.Student{
-		RA:    "1234567890",
-		Name:  "",
-		Email: "elioeanaiferrari@gmail.com",
-		Phone: "27999999999",
-		CPF:   "12345678901",
-		Age:   22,
-	}
+	student := studentFixture()
+	student.Name = ""
 
 	err := student.Prepare()
 

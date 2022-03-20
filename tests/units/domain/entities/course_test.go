@@ -6,24 +6,24 @@ import (
 	"github.com/ElioenaiFerrari/cqrs/src/domain/entities"
 )
 
-func TestCoursePrepareWhenPassValidParams(t *testing.T) {
-	course := entities.Course{
-		Name:        "Software Engineering",
+func courseFixture() entities.Course {
+	return entities.Course{
+		Name:        "Go for Beginners",
 		Description: "Go is a programming language",
 		Price:       100.00,
 	}
+}
 
+func TestCoursePrepareWhenPassValidParams(t *testing.T) {
+	course := courseFixture()
 	if err := course.Prepare(); err != nil {
 		t.Errorf("Prepare() error = %v, wantErr %v", err, nil)
 	}
 }
 
 func TestCoursePrepareWhenPassInvalidPrice(t *testing.T) {
-	course := entities.Course{
-		Name:        "Software Engineering",
-		Description: "Go is a programming language",
-		Price:       -100.00,
-	}
+	course := courseFixture()
+	course.Price = -1
 
 	err := course.Prepare()
 
