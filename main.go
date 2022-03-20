@@ -41,7 +41,7 @@ func main() {
 
 	studentController := factories.MakeStudentController(db, producer)
 
-	r.POST("/student", studentController.Create)
+	r.POST("/students", studentController.Create)
 
 	e.Logger.Fatal(e.Start(":3000"))
 }
