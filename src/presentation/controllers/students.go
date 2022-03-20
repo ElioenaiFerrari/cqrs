@@ -22,11 +22,15 @@ func (sc *StudentsController) Create(c echo.Context) error {
 	var student entities.Student
 
 	if err := c.Bind(&student); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"message": err.Error(),
+		})
 	}
 
 	if err := sc.registerStudentCommand.Execute(&student); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"message": err.Error(),
+		})
 	}
 
 	return c.JSON(http.StatusCreated, student)
