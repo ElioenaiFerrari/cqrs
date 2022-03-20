@@ -2,11 +2,15 @@ version: '3'
 
 services:
   server:
+    platform: linux/amd64
     container_name: server
     hostname: server
     build: .
     ports:
       - '3000:3000'
+    depends_on:
+      - kafka
+      - postgres
   zookeeper:
     platform: linux/amd64
     image: wurstmeister/zookeeper:latest
@@ -24,6 +28,8 @@ services:
     volumes:
       - /usr/lib/systemd/system/podman.socket:/var/run/docker.sock
   postgres:
+    container_name: postgres
+    hostname: postgres
     platform: linux/amd64
     image: postgres
     ports:
@@ -32,5 +38,3 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
-    volumes:
-      - /usr/lib/systemd/system/podman.socket:/var/run/docker.sock

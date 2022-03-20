@@ -1,6 +1,6 @@
-FROM golang:alpine
+FROM golang
 
-RUN apk update && apk add librdkafka-dev pkgconf git curl gcc && mkdir /app
+RUN mkdir /app
 
 WORKDIR /app
 COPY . .

@@ -14,7 +14,7 @@ var db *gorm.DB
 var producer *kafka.Producer
 
 func init() {
-	db, err := gorm.Open(postgres.Open("host=localhost port=5432 user=postgres dbname=cqrs password=postgres sslmode=disable"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open("host=postgres port=5432 user=postgres dbname=postgres password=postgres sslmode=disable TimeZone=America/Sao_Paulo"), &gorm.Config{})
 
 	if err != nil {
 		panic(err)
@@ -23,7 +23,7 @@ func init() {
 	db.AutoMigrate(&entities.Student{})
 
 	producer, err = kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": "localhost:9092",
+		"bootstrap.servers": "kafka:9092",
 	})
 
 	if err != nil {
