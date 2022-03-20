@@ -7,15 +7,15 @@ import (
 )
 
 type Entity struct {
-	ID        string `json:"id"`
-	CreatedAt string `json:"createdAt"`
-	UpdatedAt string `json:"updatedAt"`
+	ID        string    `json:"id"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func (e *Entity) Prepare() error {
 	e.ID = uuid.New().String()
-	e.CreatedAt = time.Now().Format(time.RFC3339)
-	e.UpdatedAt = time.Now().Format(time.RFC3339)
+	e.CreatedAt = time.Now().UTC()
+	e.UpdatedAt = time.Now().UTC()
 
 	return nil
 }
