@@ -22,9 +22,13 @@ func init() {
 
 	db.AutoMigrate(&entities.Student{})
 
-	producer, _ = kafka.NewProducer(&kafka.ConfigMap{
+	producer, err = kafka.NewProducer(&kafka.ConfigMap{
 		"bootstrap.servers": "localhost:9092",
 	})
+
+	if err != nil {
+		panic(err)
+	}
 }
 
 func main() {
