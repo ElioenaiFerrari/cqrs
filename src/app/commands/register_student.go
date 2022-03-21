@@ -20,12 +20,12 @@ func NewRegisterStudentCommand(db *gorm.DB, nc *nats.Conn) RegisterStudentComman
 	}
 }
 
-func (rs *RegisterStudentCommand) Execute(student *entities.Student) error {
+func (rs *RegisterStudentCommand) Execute(student entities.Student) error {
 	if err := student.Prepare(); err != nil {
 		return err
 	}
 
-	if err := rs.db.Create(student).Error; err != nil {
+	if err := rs.db.Create(&student).Error; err != nil {
 		return err
 	}
 
@@ -35,7 +35,7 @@ func (rs *RegisterStudentCommand) Execute(student *entities.Student) error {
 		return err
 	}
 
-	rs.nc.Publish("register_student", jason)
+	rs.nc.Publish("student.register", jason)
 
 	return nil
 }
