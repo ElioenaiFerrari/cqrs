@@ -4,19 +4,19 @@ import (
 	"encoding/json"
 
 	"github.com/ElioenaiFerrari/cqrs/src/domain/entities"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/nats-io/nats.go"
 	"gorm.io/gorm"
 )
 
 type RegisterStudentCommand struct {
-	producer *kafka.Producer
-	db       *gorm.DB
+	db *gorm.DB
+	nc *nats.Conn
 }
 
-func NewRegisterStudentCommand(db *gorm.DB, producer *kafka.Producer) RegisterStudentCommand {
+func NewRegisterStudentCommand(db *gorm.DB, nc *nats.Conn) RegisterStudentCommand {
 	return RegisterStudentCommand{
-		db:       db,
-		producer: producer,
+		db: db,
+		nc: nc,
 	}
 }
 
@@ -29,22 +29,13 @@ func (rs *RegisterStudentCommand) Execute(student *entities.Student) error {
 		return err
 	}
 
-	defer rs.producer.Close()
-
 	jason, err := json.Marshal(student)
 
 	if err != nil {
 		return err
 	}
 
-	topic := "register_student"
-
-	rs.producer.Produce(&kafka.Message{
-		TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: 0},
-		Value:          jason,
-	}, nil)
-
-	rs.producer.Flush(10 * 1000)
+	rs.nc.Publish("register_student", jason)
 
 	return nil
 }
