@@ -24,7 +24,7 @@ func init() {
 	db.AutoMigrate(&entities.Course{})
 
 	producer, err = kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": "kafka:9092",
+		"bootstrap.servers": "broker:9092",
 	})
 
 	if err != nil {
