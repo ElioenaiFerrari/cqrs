@@ -15,10 +15,6 @@ func (c Course) Prepare() error {
 		return err
 	}
 
-	if err := c.Entity.Prepare(); err != nil {
-		return err
-	}
-
 	return nil
 }
 

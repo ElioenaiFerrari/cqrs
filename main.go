@@ -10,7 +10,10 @@ import (
 	"gorm.io/gorm"
 )
 
-func main() {
+var db *gorm.DB
+var producer *kafka.Producer
+
+func init() {
 	db, err := gorm.Open(postgres.Open("host=postgres port=5432 user=postgres dbname=postgres password=postgres sslmode=disable TimeZone=America/Sao_Paulo"), &gorm.Config{})
 
 	if err != nil {
@@ -20,13 +23,16 @@ func main() {
 	db.AutoMigrate(&entities.Student{})
 	db.AutoMigrate(&entities.Course{})
 
-	producer, err := kafka.NewProducer(&kafka.ConfigMap{
+	producer, err = kafka.NewProducer(&kafka.ConfigMap{
 		"bootstrap.servers": "kafka:9092",
 	})
 
 	if err != nil {
 		panic(err)
 	}
+}
+
+func main() {
 
 	e := echo.New()
 	r := e.Group("/api/v1")

@@ -22,10 +22,6 @@ func (s Student) Prepare() error {
 		return err
 	}
 
-	if err := s.Entity.Prepare(); err != nil {
-		return err
-	}
-
 	return nil
 }
 
