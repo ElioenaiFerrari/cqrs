@@ -7,11 +7,11 @@ import (
 
 type Student struct {
 	Entity
-	RA    string `json:"ra" gorm:"type:varchar(10);unique_index"`
-	Name  string `json:"name" gorm:"type:varchar(255)"`
-	Email string `json:"email" gorm:"type:varchar(255);unique_index"`
-	Phone string `json:"phone" gorm:"type:varchar(11);unique_index"`
-	CPF   string `json:"cpf" gorm:"type:varchar(11);unique_index"`
+	RA    string `json:"ra" gorm:"type:varchar(10);uniqueIndex"`
+	Name  string `json:"name" gorm:"type:varchar(255);uniqueIndex"`
+	Email string `json:"email" gorm:"type:varchar(255);uniqueIndex"`
+	Phone string `json:"phone" gorm:"type:varchar(11);uniqueIndex"`
+	CPF   string `json:"cpf" gorm:"type:varchar(11);uniqueIndex"`
 	Age   int    `json:"age"`
 }
 
