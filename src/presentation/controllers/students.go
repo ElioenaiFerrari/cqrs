@@ -36,9 +36,7 @@ func (sc *StudentsController) Create(c echo.Context) error {
 		})
 	}
 
-	return c.JSON(http.StatusCreated, map[string]string{
-		"message": "Student created",
-	})
+	return c.NoContent(http.StatusCreated)
 }
 
 func (sc *StudentsController) Index(c echo.Context) error {
