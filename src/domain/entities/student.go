@@ -7,13 +7,12 @@ import (
 
 type Student struct {
 	Entity
-	Course string `json:"course"`
-	RA     string `json:"ra"`
-	Name   string `json:"name"`
-	Email  string `json:"email"`
-	Phone  string `json:"phone"`
-	CPF    string `json:"cpf"`
-	Age    int    `json:"age"`
+	RA    string `json:"ra"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	Phone string `json:"phone"`
+	CPF   string `json:"cpf"`
+	Age   int    `json:"age"`
 }
 
 func (s Student) Prepare() error {
