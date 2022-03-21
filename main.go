@@ -33,7 +33,6 @@ func init() {
 }
 
 func main() {
-
 	e := echo.New()
 	r := e.Group("/api/v1")
 
